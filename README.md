@@ -1,2 +1,1 @@
 # Distribuida
-# Distribuida
