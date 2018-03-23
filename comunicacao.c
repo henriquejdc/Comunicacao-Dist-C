@@ -1,7 +1,7 @@
 /*
    SERVER/CLIENTE UDP COM LISTA DE ENVIO COM CUSTO
    HENRIQUE JOSE DALLA CORTE
-   gcc comunicao.c -o cliente -lpthread -pthread
+   gcc comunicacao.c -o cliente -lpthread -pthread
    ./cliente
 */
 #include <sys/socket.h>
