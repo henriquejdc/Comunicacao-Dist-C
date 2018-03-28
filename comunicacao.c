@@ -162,12 +162,23 @@ fp = fopen("enlaces.config","r");//abre o arquivo e aponta pro ponteiro
                arestas(origem,p);
                first=0; //diz que já foi feito o primeiro
 
+               p = nodo1(p); //cria e faz aponteiramento
+               p->id = atoi(id_d);
+               p->id1 = atoi(id_i);
+               p->custo = atoi(custo);
+               arestas(origem,p);
            }else{ //se já existe primeiro
                p = nodo1(p); //cria e faz aponteiramento
                p->id = atoi(id_i);
                p->id1 = atoi(id_d);
                p->custo = atoi(custo);
                //função de enlace
+               arestas(origem,p);
+
+               p = nodo1(p); //cria e faz aponteiramento
+               p->id = atoi(id_d);
+               p->id1 = atoi(id_i);
+               p->custo = atoi(custo);
                arestas(origem,p);
            }
        }
@@ -178,12 +189,18 @@ fp = fopen("enlaces.config","r");//abre o arquivo e aponta pro ponteiro
    fclose(fp);
 }
 
-void envio(int id_destino, char message1[], roteador* origem){ //FUNCAO QUE CONCATENA INFORMAÇÕES PARA O ENVIO
+void envio(int router,int id_destino, char message1[], roteador* origem){ //FUNCAO QUE CONCATENA INFORMAÇÕES PARA O ENVIO
    int cont = 0;
    msg* info = (msg *) malloc(sizeof(msg)); //cria a struct de informação
-
+   roteador* aux;
+   aux = origem;
    strcpy(info->message,message1);
    info->id_destino = id_destino;
+
+   for(;aux->id!=router;aux = origem->next);
+
+   //for(;origem->vetor[x]!=NULL; x++)if(origem->id id_destino)
+
    for(;origem!=NULL;origem = origem->next){
        if(origem->id == id_destino){
            info->port_destino = origem->n_porta;
@@ -305,7 +322,7 @@ void server(roteador* origem){ //servidor esperando um cliente
        {
            die("sendto()");
        }
-       
+
        y=1;
        custo=11234567;
        memset(numero,'\0',15);
@@ -328,8 +345,8 @@ void server(roteador* origem){ //servidor esperando um cliente
        //printf("%d == %d\n", atoi(numero),origem->id);
        if(atoi(numero)!=origem->id){ //PROCURANDO ENTRE POSSIVEIS CAMINHOS O MENOR
                for(aux_rot = origem;aux_rot->under!=NULL;aux_rot = origem->under);
-               envio(atoi(numero),message,aux_rot);
-       }else printf("Pacote entregue ao destino");
+               envio(origem->id,atoi(numero),message,aux_rot);
+       }else printf("Pacote entregue ao destino\n");
    }
 
    close(s);
@@ -372,9 +389,8 @@ memset(aux,(int)-1,sizeof(int)*50);
 roteador = leituraroteador();//le roteadores e devolve o inicio deles
 leituraenlace(roteador);//cria arestas
 
-
 //carregados(roteador);
-mostra(roteador);
+//mostra(roteador);
 //autos(roteador);
    printf("Qual roteador iniciar ?\n");
    scanf("%d", &router);
@@ -388,7 +404,7 @@ mostra(roteador);
            //printf("Enter message : ");
            scanf("%s",message);
            if(verifica(destino,roteador)){      //verifica os roteadores digitados
-               envio(destino,message,iniroteador); //chama o envio da mensagem ao primeiro roteador
+               envio(router,destino,message,iniroteador); //chama o envio da mensagem ao primeiro roteador
            }
    }
 
