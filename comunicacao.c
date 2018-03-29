@@ -1,4 +1,6 @@
 /*
+   SERVER/CLIENTE UDP COM LISTA DE ENVIO COM CUSTO
+   HENRIQUE JOSE DALLA CORTE
    gcc comunicacao.c -o cliente -lpthread -pthread
    ./cliente
 */
@@ -398,4 +400,3 @@ leituraenlace(roteador);//cria arestas
 
 return 0;
 }
-
