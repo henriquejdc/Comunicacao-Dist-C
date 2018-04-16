@@ -18,6 +18,12 @@ def receving(name, sock):
         finally:
             tLock.release()
 
+def past_conv():
+    arquivo = open('conversa.txt', 'r')
+    conteudo = arquivo.readlines()
+    print(conteudo)
+
+
 host = '127.0.0.1'
 port = 0
 
@@ -30,6 +36,7 @@ s.setblocking(0)
 receivingThread = threading.Thread(target = receving, args = ("RecvThread", s))
 receivingThread.start()
 
+past_conv()
 print("Press Enter Before Send Message, message send only with ->")
 alias = input("Name: ")
 message = 'Connect'
