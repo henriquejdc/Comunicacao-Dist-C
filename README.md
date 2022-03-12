@@ -34,11 +34,10 @@ Funções:
 - Verifica_roteador função que inicia threads para receber,enviar e atualizar vetores e mensagens.
  
 EXECUÇÃO:
-- Execute os arquivos .c de comunicacao.c, cliente.c e servidor.c
+- Execute o arquivo comunicacao.c
 - Digite qual roteador iniciar
 - Espera a conversão dos roteadores iniciados e/ou desligados
 - Digite o roteador destino
 - Digite mensagem
-
 - Caso queira ver a tabela do roteador
 - Digite -2 e msg
